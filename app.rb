@@ -15,7 +15,7 @@ languages = {
 
 prompt = TTY::Prompt.new
 
-puts "Escreva um texto"
+puts "Escreva um texto e pressione enter"
 source_text = gets.chomp
 source_lang = prompt.select("Escolha a lingua de origem:", languages.values)
 source_lang_key = languages.key(source_lang)
@@ -34,5 +34,13 @@ end
 
 translated_text = translation_thread.value
 
-file = Text.new
-file.translate_file(source_text, translated_text, target_lang)
+if translated_text == "NO QUERY SPECIFIED. EXAMPLE REQUEST: GET?Q=HELLO&LANGPAIR=EN|IT"
+  puts "Por favor, insira um texto para tradução"
+elsif translated_text == "PLEASE SELECT TWO DISTINCT LANGUAGES"
+  puts "Por favor escolha linguagens distintas."
+elsif translated_text == source_text
+  puts "Linguagem de origem ou destino inválidas"
+else
+  file = Text.new
+  file.translate_file(source_text, translated_text, target_lang)
+end
