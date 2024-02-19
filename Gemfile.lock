@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    colorize (1.1.0)
     debug (1.9.1)
       irb (~> 1.10)
       reline (>= 0.3.8)
@@ -41,6 +42,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  colorize
   debug
   tty-progressbar
   tty-prompt

@@ -3,14 +3,15 @@ require_relative  'write'
 require_relative 'progress_bar'
 require 'tty-prompt'
 require 'tty-progressbar'
+require 'colorize'
 
 languages = {
-  "en" => "Inglês",
-  "es" => "Espanhol",
-  "it" => "Italiano",
-  "ja" => "Japonês",
-  "pt-BR" => "Português",
-  "fr" => "Francês"
+  "en" => "In".colorize(:blue) + "gl".colorize(:white) + "ês".colorize(:red),
+  "es" => "Espa".colorize(:red) + "nhol".colorize(:yellow),
+  "it" => "It".colorize(:green) + "ali".colorize(:white) + "ano".colorize(:red),
+  "ja" => "Japo".colorize(:white) + "nês".colorize(:red),
+  "pt-BR" => "Port".colorize(:green) + "uguês".colorize(:yellow),
+  "fr" => "Fra".colorize(:blue) + "nc".colorize(:white) + "ês".colorize(:red)
 }
 
 prompt = TTY::Prompt.new
@@ -35,12 +36,15 @@ end
 translated_text = translation_thread.value
 
 if translated_text == "NO QUERY SPECIFIED. EXAMPLE REQUEST: GET?Q=HELLO&LANGPAIR=EN|IT"
-  puts "Por favor, insira um texto para tradução"
+  puts "Por favor, insira um texto para tradução.".colorize(:red)
 elsif translated_text == "PLEASE SELECT TWO DISTINCT LANGUAGES"
-  puts "Por favor escolha linguagens distintas."
+  puts "Por favor escolha linguagens distintas.".colorize(:red)
 elsif translated_text == source_text
-  puts "Linguagem de origem ou destino inválidas"
+  puts "Linguagem de origem ou destino inválidas.".colorize(:red)
 else
   file = Text.new
-  file.translate_file(source_text, translated_text, target_lang)
+  file.translate_file(source_text, translated_text)
+  puts "Texto de origem:".colorize(:blue) + source_text
+  puts "*******************************************************************"
+  puts "Texto traduzido:".colorize(:blue) + translated_text
 end
