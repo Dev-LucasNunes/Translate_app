@@ -1,6 +1,12 @@
 # Translate_app
 This is a simple text translation program that utilizes an API for translation. It allows users to input a text, choose the source and target languages, and get the translated text. Additionally, it saves the original and translated text into a file with a timestamp.
 
+
+
+https://github.com/Dev-LucasNunes/Translate_app/assets/115117571/b40b72bb-12f1-4982-89a4-3c978981bdf1
+
+
+
 # Features
 Translates text from one language to another using an API.
 Supports multiple languages.
