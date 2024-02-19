@@ -9,7 +9,8 @@ languages = {
   "es" => "Espanhol",
   "it" => "Italiano",
   "ja" => "Japonês",
-  "pt-BR" => "Português"
+  "pt-BR" => "Português",
+  "fr" => "Francês"
 }
 
 prompt = TTY::Prompt.new
@@ -21,9 +22,17 @@ source_lang_key = languages.key(source_lang)
 target_lang = prompt.select("Escolha a língua de destino:", languages.values)
 target_lang_key = languages.key(target_lang)
 
-translate = Translate.new
-translated_text = translate.translate_text(source_text, source_lang_key, target_lang_key)
-progress_bar
+translated_text = nil
+translation_thread = Thread.new do
+  translate = Translate.new
+  translated_text = translate.translate_text(source_text, source_lang_key, target_lang_key)
+end
+
+until translation_thread.join(0.1) do
+  progress_bar
+end
+
+translated_text = translation_thread.value
 
 file = Text.new
-file.translate_file(source_text, translated_text)
+file.translate_file(source_text, translated_text, target_lang)
