@@ -17,3 +17,4 @@ class Translate
     end
   end
 end
+
